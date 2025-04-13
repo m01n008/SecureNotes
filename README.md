@@ -42,7 +42,7 @@ Presentation (Compose UI) │ ├── ViewModel (Business Logic) │ ├──
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/yourname/SecureNotes.git
+git clone https://github.com/m01n008/SecureNotes.git
 open in Android Studio
 Run on device (min SDK 23)
 
