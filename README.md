@@ -48,14 +48,20 @@ Run on device (min SDK 23)
 
 📁 Folder Structure
 
-app/
-├── ui/
-├── viewmodel/
+SecureNotes/
+├── presentation/
+│   ├── login/
+│   │   ├── LoginState.kt
+│   │   ├── LoginIntent.kt
+│   │   ├── LoginViewModel.kt
+│   │   └── LoginScreen.kt
+├── domain/
+│   └── models/
 ├── data/
-│   ├── local/
-│   └── remote/
-├── model/
-└── util/
+│   └── repository/
+├── utils/
+│   └── biometric/BiometricHelper.kt
+
 
 
 🗺 Roadmap

@@ -1,0 +1,4 @@
+package com.m01n008.securenotes.presentation.login
+
+sealed class LoginIntent {
+}
