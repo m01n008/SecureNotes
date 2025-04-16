@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -52,9 +54,11 @@ fun LoginScreen(viewModel: LoginViewModel, modifier: Modifier) {
           }
            else{
                Spacer(modifier = Modifier.padding(16.dp))
-               PinEntryField(pin = pin) { pin  = it }
+               PinEntryField(pin = pin) { pin  = it
+                   viewModel.dispatch(LoginIntent.PinChanged(it))
+               }
                Button(onClick = {viewModel.dispatch(LoginIntent.AttemptPinLogin(pin))}){
-                   Text("Login with MPIN")
+                   Text("Login with PIN")
                }
            }
 
@@ -69,8 +73,8 @@ fun LoginScreen(viewModel: LoginViewModel, modifier: Modifier) {
 }
 
 @Composable
-fun PinEntryField(pin: String, onPinChange: (String) -> Unit){
-    TextField(value = pin, onValueChange = { newValue ->
+fun PinEntryField(pin: String,onPinChange: (String) -> Unit, ){
+    OutlinedTextField(value = pin, onValueChange = { newValue ->
         run {
             val filtered = newValue.filter { it.isDigit() }.take(4)
             onPinChange(filtered)
@@ -83,7 +87,13 @@ fun PinEntryField(pin: String, onPinChange: (String) -> Unit){
         label = { Text("Enter PIN") },
         visualTransformation = PasswordVisualTransformation(),
         singleLine = true,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(0.9f)
 
     )
+}
+
+@Preview
+@Composable
+fun PreviewLoginScreen(){
+    LoginScreen(viewModel = LoginViewModel(), modifier = Modifier.padding(0.dp))
 }

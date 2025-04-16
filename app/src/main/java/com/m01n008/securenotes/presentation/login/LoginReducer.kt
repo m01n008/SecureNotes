@@ -12,8 +12,12 @@ fun loginReducer(loginIntent: LoginIntent, loginState: LoginState): LoginState{
 
       }
       is LoginIntent.Logout -> LoginState()
-      LoginIntent.AttemptBiometricLogin -> loginState.copy(isLoading = true, error = null)
-      LoginIntent.AttemptFaceLogin -> loginState.copy(isLoading = true)
+      is LoginIntent.AttemptBiometricLogin -> loginState.copy(isLoading = true, error = null)
+      is LoginIntent.AttemptFaceLogin -> loginState.copy(isLoading = true)
+      is LoginIntent.PinChanged -> {
+          loginState.copy(error = null)
+      }
+
   }
 
 }
