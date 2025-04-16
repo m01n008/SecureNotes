@@ -9,7 +9,7 @@ class LoginViewModel: ViewModel() {
     val loginState : StateFlow<LoginState> = _loginState
 
     fun dispatch(loginIntent: LoginIntent){
-        val newState = loginReducer(loginIntent, _loginState.value)
+        val newState = reduceLogin(loginIntent, _loginState.value)
         _loginState.value = newState
     }
 }

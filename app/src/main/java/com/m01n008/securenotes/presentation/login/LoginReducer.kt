@@ -1,6 +1,6 @@
 package com.m01n008.securenotes.presentation.login
 
-fun loginReducer(loginIntent: LoginIntent, loginState: LoginState): LoginState{
+fun reduceLogin(loginIntent: LoginIntent, loginState: LoginState): LoginState{
   return when (loginIntent) {
       is LoginIntent.AttemptPinLogin -> {
           if (loginIntent.pin == "9876") {
