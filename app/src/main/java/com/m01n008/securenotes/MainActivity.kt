@@ -22,8 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SecureNotesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   LoginScreen(
-                       viewModel = LoginViewModel(),
+                   App(
                        modifier = Modifier.padding(innerPadding)
                    )
                 }

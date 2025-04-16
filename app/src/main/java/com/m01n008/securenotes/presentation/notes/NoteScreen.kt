@@ -1,5 +1,6 @@
 package com.m01n008.securenotes.presentation.notes
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
@@ -9,34 +10,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.m01n008.securenotes.R
 
 @Composable
-fun NotesScreen(viewModel: NotesViewModel){
+fun NotesScreen(viewModel: NotesViewModel, modifier: Modifier){
     val state by viewModel.state.collectAsState()
     var heading by remember { mutableStateOf("") }
     var body by remember { mutableStateOf("") }
-    Column(modifier = Modifier.fillMaxSize()
+    Column(modifier = modifier.fillMaxSize()
         ) {
-
+      //  Row(modifier = Modifier.fillMaxWidth().height(20.dp)){
+            IconButton(onClick = {
+                viewModel.dispatch(NotesIntent.AddNote(heading, body))
+            }, modifier = Modifier.align(Alignment.End)) {
+                Icon(
+                    painter = painterResource(id = android.R.drawable.ic_menu_close_clear_cancel),
+                    contentDescription = "close button",
+                    tint = Color.Red
+                )
+            }
+        //}
         TextField(value = heading,
             onValueChange = {  heading = it},
             modifier = Modifier.fillMaxWidth().height(60.dp),
@@ -72,6 +88,10 @@ fun NotesScreen(viewModel: NotesViewModel){
             label = { Text("Body") }
 
         )
+
+        state.error?.let {
+            Toast.makeText(LocalContext.current,it, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
@@ -107,5 +127,5 @@ fun PreviewDottedLine() {
 @Preview
 @Composable
 fun PreviewNoteScreen(){
-    NotesScreen(viewModel = NotesViewModel())
+    NotesScreen(viewModel = NotesViewModel(), modifier = Modifier.padding(0.dp))
 }
