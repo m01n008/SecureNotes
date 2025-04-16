@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.m01n008.securenotes.presentation.login.LoginScreen
+import com.m01n008.securenotes.presentation.login.LoginViewModel
 import com.m01n008.securenotes.ui.theme.SecureNotesTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,15 +22,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             SecureNotesTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                   LoginScreen(
+                       viewModel = LoginViewModel(),
+                       modifier = Modifier.padding(innerPadding)
+                   )
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

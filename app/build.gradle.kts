@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.m01n008.securenotes"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.m01n008.securenotes"
