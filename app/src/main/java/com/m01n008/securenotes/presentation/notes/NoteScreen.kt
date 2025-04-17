@@ -1,7 +1,6 @@
 package com.m01n008.securenotes.presentation.notes
 
 import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -11,7 +10,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,10 +31,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.m01n008.securenotes.R
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun NotesScreen(viewModel: NotesViewModel, modifier: Modifier){
+fun NotesScreen(navHost: NavHostController, viewModel: NotesViewModel, modifier: Modifier){
     val state by viewModel.state.collectAsState()
     var heading by remember { mutableStateOf("") }
     var body by remember { mutableStateOf("") }
@@ -127,5 +126,5 @@ fun PreviewDottedLine() {
 @Preview
 @Composable
 fun PreviewNoteScreen(){
-    NotesScreen(viewModel = NotesViewModel(), modifier = Modifier.padding(0.dp))
+    NotesScreen(navHost = rememberNavController(), viewModel = NotesViewModel(), modifier = Modifier.padding(0.dp))
 }

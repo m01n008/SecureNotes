@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.m01n008.securenotes.presentation.login.LoginScreen
 import com.m01n008.securenotes.presentation.login.LoginViewModel
+import com.m01n008.securenotes.presentation.notes.NotesListScreen
 import com.m01n008.securenotes.presentation.notes.NotesScreen
 import com.m01n008.securenotes.presentation.notes.NotesViewModel
 
@@ -15,13 +16,16 @@ import com.m01n008.securenotes.presentation.notes.NotesViewModel
 fun App(modifier: Modifier){
 
     val navHost = rememberNavController()
-    NavHost(navController = navHost, startDestination = "note") {
+    NavHost(navController = navHost, startDestination = "notelist") {
 
         composable("login"){
-            LoginScreen(LoginViewModel(), modifier = modifier)
+            LoginScreen(navHost, LoginViewModel(), modifier = modifier)
         }
-        composable("note"){
-            NotesScreen(NotesViewModel(),modifier = modifier)
+        composable("addnote"){
+            NotesScreen(navHost, NotesViewModel(),modifier = modifier)
+        }
+        composable("notelist"){
+            NotesListScreen(navHost, NotesViewModel(), modifier = modifier)
         }
     }
 

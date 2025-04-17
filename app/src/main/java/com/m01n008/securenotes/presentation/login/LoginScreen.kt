@@ -10,7 +10,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,9 +24,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel, modifier: Modifier) {
+fun LoginScreen(navHost: NavHostController, viewModel: LoginViewModel, modifier: Modifier) {
     val state by viewModel.loginState.collectAsState()
     var pin by remember{ mutableStateOf("") }
     Column(
@@ -38,7 +39,7 @@ fun LoginScreen(viewModel: LoginViewModel, modifier: Modifier) {
 
        Spacer(modifier = Modifier.padding(16.dp))
        if(state.isAuthenticated){
-           Text("SecureNotesListScreen here")
+           navHost.navigate("notelist")
            Button(onClick = {viewModel.dispatch(LoginIntent.Logout)}){
                Text("Logout")
            }
@@ -95,5 +96,5 @@ fun PinEntryField(pin: String,onPinChange: (String) -> Unit, ){
 @Preview
 @Composable
 fun PreviewLoginScreen(){
-    LoginScreen(viewModel = LoginViewModel(), modifier = Modifier.padding(0.dp))
+    LoginScreen(navHost = rememberNavController(), viewModel = LoginViewModel(), modifier = Modifier.padding(0.dp))
 }
